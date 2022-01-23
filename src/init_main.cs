@@ -5,17 +5,36 @@ using IniParser;
 using IniParser.Model;
 
 namespace init {
-    class main {
+    class init_main {
         private static void Main(string[] args)
         {
             //init program
+            //C#是不计root参数的，第一个参数就是输入的参数
             if (args.Length == 0) {
                 Console.WriteLine("Error>>>缺少参数");
+                help();
                 return;
             }
             else {
-                foreach (var args_item in args) {
-                    Execute(args_item);
+                if (args[0].Equals("?") || args[0].Equals("？") || args[0].Equals("--help") || args[0].Equals("-help") || args[0].Equals("help"))
+                {
+                    help();
+                    return;
+                }
+                else if (args[0].Equals("--EditSelf"))
+                {
+                    ExecuteCMD("\"D:\\Working Software\\_IDE\\Visual Studio\\2019\\Community\\Common7\\IDE\\devenv.exe\" \"E:\\Code\\C#\\init\\init.sln\"");
+                }
+                else if (args[0].Equals("--config"))
+                {
+                    ExecuteCMD("notepad \"D:\\System Software\\CMDitem\\config\\init.ini\"");
+                }
+                else
+                {
+                    foreach (var args_item in args)
+                    {
+                        Execute(args_item);
+                    }
                 }
             }
         }
@@ -51,14 +70,7 @@ namespace init {
                             // if the value is not null and then execute the command
                             if (tmp_cmd_value != null) {
                                 if (tmp_cmd_value.Equals("") == false) {
-                                    System.Diagnostics.Process process = new System.Diagnostics.Process();
-                                    System.Diagnostics.ProcessStartInfo startInfo =
-                                        new System.Diagnostics.ProcessStartInfo();
-                                    startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
-                                    startInfo.FileName = "cmd.exe";
-                                    startInfo.Arguments = "/C " + tmp_cmd_value;
-                                    process.StartInfo = startInfo;
-                                    process.Start();
+                                    ExecuteCMD(tmp_cmd_value);
                                 }
                             }
                             else {
@@ -80,6 +92,16 @@ namespace init {
             }
         }
 
+        public static void ExecuteCMD(string strs_cmd)
+        {
+            System.Diagnostics.Process process = new System.Diagnostics.Process();
+            System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
+            startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+            startInfo.FileName = "cmd.exe";
+            startInfo.Arguments = "/C " + strs_cmd;
+            process.StartInfo = startInfo;
+            process.Start();
+        }
 
         public static List<string> CutString(String SourceString, char SplitTarget)
         {
@@ -92,6 +114,14 @@ namespace init {
                 tmp_list_SourceString.Add(SourceString[0].ToString());
             }
             return tmp_list_SourceString;
+        }
+
+        public static void help()
+        {
+            Console.WriteLine(
+                "Usage: init (optional)parameter\n" +
+                "EditProgram: init --EditSelf\n" +
+                "EditConfig: init --config");
         }
     }
 }

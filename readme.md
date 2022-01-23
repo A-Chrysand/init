@@ -1,17 +1,5 @@
 ﻿# init porgram
 
-### temp
-|fileName|function|target|
-|:----:|:----:|:----:|
-| ce.py  | set JAVAHOME | full remake|
-| ide.exe | quick run ide| add config file support|
-| ipa.bat | ipconfig /all| full remake|
-| vi.ps1| quick nodepad.exe edit file| full remake|
-|vmrun.py| start vm in cmd(used in SSH)| full remake|
-
-
-
-
 ## description
 
 This is just only some/something quick launch command SET program.  
@@ -30,9 +18,6 @@ Conifg: ```%dir%/config/init.ini```, used to storage some custom
     1. ```AlterName``` and ```ExecuteCmd```  themselves are case sensitive. Please pay attention to the case while editing the file.  
     2. Path are supposed to add " " like ```"D:\\software\\test.exe"```(√) instead of ```D:\\software\\test.exe```(×) 
    
-
-
-
 ```ini
 [test]
 AlterName = t,test,test0,exampleTest,    #[required] altername is use to execute as parameter
@@ -54,7 +39,13 @@ init test
 >>>steam.exe VisualStudioCode pycharm started
 ```
 
-## Program mermaid
+### Program
+
+### used packages
+- Costura.Fody.5.7.0
+- ini-parser.2.5.2
+
+### mermaid
 ```flow
       (start)
          |
